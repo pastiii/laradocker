@@ -26,26 +26,12 @@ class StaffController extends BaseController
 
     /**
      * 企业员工列表
-     * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      * @throws \App\Exceptions\ExampleException
-     * @throws \Illuminate\Validation\ValidationException
      */
-    public function StaffList(Request $request)
+    public function StaffList()
     {
-        #校验规则
-        $rule = [
-            'enterprise_id' => 'required|int',
-        ];
-
-        $msg = [
-            'enterprise_id.required' => '请选择正确的企业!',
-        ];
-
-        #字段校验
-        $this->validate($request, $rule, $msg);
-
-        $result = $this->staff_service->StaffList($this->params, $this->is_page, $this->per_page);
+        $result = $this->staff_service->StaffList($this->is_page, $this->per_page);
 
         return $this->Response($result);
     }
@@ -77,44 +63,12 @@ class StaffController extends BaseController
     }
 
     /**
-     * 企业列表
-     * @return \Illuminate\Http\JsonResponse
-     * @throws \App\Exceptions\ExampleException
-     */
-    public function EnterpriseList()
-    {
-        $result = $this->staff_service->EnterpriseList($this->params);
-
-        return $this->Response($result);
-    }
-
-    /**
-     * 编辑防疫方案
+     * 导入
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
+     * @throws \App\Exceptions\ExampleException
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function EditProgramme(Request $request)
-    {
-        #校验规则
-        $rule = [
-            'programme'     => 'required',
-            'enterprise_id' => 'required|int',
-        ];
-
-        $msg = [
-            'programme.required'     => '请填写复产防疫方案!',
-            'enterprise_id.required' => '请选择正确的企业!',
-        ];
-
-        #字段校验
-        $this->validate($request, $rule, $msg);
-
-        $result = $this->staff_service->EditProgramme($this->params);
-
-        return $this->Response($result);
-    }
-
     public function Import(Request $request)
     {
         #校验规则
@@ -141,44 +95,6 @@ class StaffController extends BaseController
 
         $service = new ImportService();
         $result = $service->Import($this->params);
-
-        return $this->Response($result);
-    }
-
-    /**
-     * 上报日志
-     * @return \Illuminate\Http\JsonResponse
-     * @throws \App\Exceptions\ExampleException
-     */
-    public function ImportLog()
-    {
-        $result = $this->staff_service->ImportLog($this->is_page, $this->per_page);
-
-        return $this->Response($result);
-    }
-
-    /**
-     * 防疫方案内容
-     * @param Request $request
-     * @return \Illuminate\Http\JsonResponse
-     * @throws \App\Exceptions\ExampleException
-     * @throws \Illuminate\Validation\ValidationException
-     */
-    public function Programme(Request $request)
-    {
-        #校验规则
-        $rule = [
-            'enterprise_id' => 'required|int',
-        ];
-
-        $msg = [
-            'enterprise_id.required' => '请选择正确的企业!',
-        ];
-
-        #字段校验
-        $this->validate($request, $rule, $msg);
-
-        $result = $this->staff_service->Programme($this->params);
 
         return $this->Response($result);
     }

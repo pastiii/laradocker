@@ -26,8 +26,6 @@ Route::get('/asd', 'Auth\DemoController@Asd');
 Route::get('/demo', 'Auth\DemoController@Demo');
 Route::post('/demo', 'Auth\DemoController@Demo');
 
-Route::get('approval/export', 'Admin\ApprovalController@Export');
-Route::get('approval/pdf-file', 'Admin\ApprovalController@PdfFile');
 
 Route::group(['middleware' => 'login'], function () {
     #用户
@@ -40,48 +38,10 @@ Route::group(['middleware' => 'login'], function () {
         Route::get('/del-user', 'UserController@DelUser');
     });
 
-    #企业
-    Route::prefix('enterprise')->namespace('Admin')->group(function () {
-        Route::post('/create-enterprise', 'EnterpriseController@CreateEnterprise');
-        Route::post('/edit-enterprise', 'EnterpriseController@EditEnterprise');
-        Route::get('/enterprise-detail', 'EnterpriseController@EnterpriseDetail');
-        Route::get('/enterprise-list', 'EnterpriseController@EnterpriseList');
-        Route::get('/del-enterprise', 'EnterpriseController@DelEnterprise');
-    });
-
-    #审批
-    Route::prefix('approval')->namespace('Admin')->group(function () {
-        Route::get('/approval-list', 'ApprovalController@ApprovalList');
-        Route::get('/approval-detail', 'ApprovalController@ApprovalDetail');
-        Route::post('/approval', 'ApprovalController@Approval');
-        Route::get('/enterprise', 'ApprovalController@Enterprise');
-        Route::get('/approval-process', 'ApprovalController@ApprovalProcess');
-        Route::get('/apply-list', 'ApprovalController@ApplyList');
-    });
-
     #员工
     Route::prefix('staff')->namespace('Admin')->group(function () {
         Route::get('/staff-list', 'StaffController@StaffList');
         Route::get('/staff-detail', 'StaffController@StaffDetail');
-        Route::get('/enterprise-list', 'StaffController@EnterpriseList');
-        Route::post('/edit-programme', 'StaffController@EditProgramme');
-        Route::get('/programme', 'StaffController@Programme');
-        Route::post('/import', 'StaffController@Import');
-        Route::get('/import-log', 'StaffController@ImportLog');
-    });
-
-    #统计
-    Route::prefix('statistics')->namespace('Admin')->group(function () {
-        Route::get('/enterprise', 'StatisticsController@Enterprise');
-        Route::get('/region', 'StatisticsController@Region');
-        Route::get('/total', 'StatisticsController@Total');
-    });
-
-    #发布
-    Route::prefix('report')->namespace('Admin')->group(function () {
-        Route::get('/region', 'ReportController@Region');
-        Route::get('/overview', 'ReportController@Overview');
-        Route::post('/publishing', 'ReportController@Publishing');
     });
 
     #退登

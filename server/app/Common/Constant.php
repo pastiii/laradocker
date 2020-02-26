@@ -7,17 +7,7 @@
  */
 
 #数据库前缀
-const FIX = 'yqsb_';
-
-#地区数据
-const LAOTING     = [4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21];
-const LAOTING_NUM = 15;
-
-#短信常量
-const SMS_URL   = 'http://120.79.227.54:7862/sms';
-const SMS_USER  = '999236';
-const SMS_PWD   = 'yWMQJe';
-const SMS_EXTNO = '10690956';
+const FIX = 'hhr_';
 
 #状态码
 const RETURN_SUCCESS    = 10000; #请求成功

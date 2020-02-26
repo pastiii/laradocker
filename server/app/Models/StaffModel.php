@@ -5,7 +5,7 @@ namespace App\Models;
 
 class StaffModel extends BaseModel
 {
-    protected $table = FIX . 'enterprise_staff';
+    protected $table = FIX . 'staff';
 
     public $timestamps = false;
 
