@@ -108,4 +108,28 @@ class StaffController extends BaseController
         (new ExportService())->Export($this->params);
     }
 
+    /**
+     * 核销
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Illuminate\Validation\ValidationException
+     */
+    public function EditState(Request $request)
+    {
+        #校验规则
+        $rule = [
+            'id' => 'required|array',
+        ];
+
+        $msg = [
+            'id.required' => '请选择正确的人员!',
+        ];
+
+        #字段校验
+        $this->validate($request, $rule, $msg);
+
+        $result = $this->staff_service->EditState($this->params);
+
+        return $this->Response($result);
+    }
 }

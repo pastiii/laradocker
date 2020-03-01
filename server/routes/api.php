@@ -41,8 +41,9 @@ Route::group(['middleware' => 'login'], function () {
     #员工
     Route::prefix('staff')->namespace('Admin')->group(function () {
         Route::get('/staff-list', 'StaffController@StaffList');
-        Route::get('/staff-detail', 'StaffController@StaffDetail');
+        Route::post('/edit-state', 'StaffController@EditState');
         Route::get('/export', 'StaffController@Export');
+        Route::get('/staff-detail', 'StaffController@StaffDetail');
     });
 
     #退登

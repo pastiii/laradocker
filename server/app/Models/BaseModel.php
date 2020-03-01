@@ -49,6 +49,21 @@ class BaseModel extends EloquentModel
         return $res;
     }
 
+
+    /**
+     * 修改数据 返回受影响行数
+     * @param $where
+     * @param $data
+     * @return mixed
+     */
+    public function EditAll($where, $data)
+    {
+        $res = $this->from($this->table . ' as a');
+        $res = $this->sqlWhere($res, $where);
+        $res = $res->update($data);
+        return $res;
+    }
+
     /**
      * 获取单条数据
      * @param string $filed

@@ -15,6 +15,7 @@ use App\Models\LogModel;
 use App\Models\ProgrammeModel;
 use App\Models\StaffModel;
 use App\Traits\ResponseTrait;
+use Illuminate\Support\Facades\DB;
 
 class StaffService extends BaseService
 {
@@ -87,6 +88,26 @@ class StaffService extends BaseService
         $result = $this->staff_model->GetOne($filed, $where, $join);
 
         return $result;
+    }
+
+    /**
+     * 核销
+     * @param $param
+     * @return array
+     */
+    public function EditState($param)
+    {
+        $set = [
+            'state'     => 2,
+            'utime'     => time(),
+            'u_user_id' => $this->user_id,
+        ];
+
+        $res = DB::table('hhr_staff')
+            ->whereIn('id', $param['id'])
+            ->update($set);
+
+        return $this->HandleData('edit', $res);
     }
 
 }
