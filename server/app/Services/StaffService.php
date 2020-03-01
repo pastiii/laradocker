@@ -110,4 +110,29 @@ class StaffService extends BaseService
         return $this->HandleData('edit', $res);
     }
 
+
+    /**
+     * 创建员工
+     * @param $params
+     * @return array
+     */
+    public function CreateStaff($params)
+    {
+        $data = [
+            'staff_name'     => $params['staff_name'],
+            'staff_phone'    => $params['staff_phone'],
+            'referrer_name'  => $params['referrer_name'] ?? '',
+            'referrer_phone' => $params['referrer_phone'] ?? '',
+            'company'        => $params['company'],
+            'state'          => 1,
+            'ctime'          => time(),
+            'c_user_id'      => $this->user_id,
+            'utime'          => time(),
+            'u_user_id'      => $this->user_id,
+        ];
+
+        $res = $this->staff_model->AddData($data);
+
+        return $this->HandleData('add', $res);
+    }
 }

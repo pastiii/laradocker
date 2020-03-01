@@ -9,6 +9,10 @@ class StaffModel extends BaseModel
 
     public $timestamps = false;
 
+    protected $fillable = [
+        'staff_name', 'id_card', 'staff_phone', 'referrer_name', 'referrer_phone', 'company', 'state', 'ctime', 'c_user_id', 'utime', 'u_user_id'
+    ];
+
     public function sqlWhere($res, $where = [])
     {
         if (empty($where)) {

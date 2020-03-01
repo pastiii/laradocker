@@ -58,9 +58,8 @@ Route::post('/admin/login', 'Admin\LoginController@Login');
 
 Route::group(['middleware' => 'mobile'], function () {
     #发布的数据
-    Route::prefix('mobile')->namespace('Mobile')->group(function () {
-        Route::get('/area-report', 'ReportController@AreaReport');
-        Route::get('/total-report', 'ReportController@TotalReport');
+    Route::prefix('mobile/staff')->namespace('Mobile')->group(function () {
+        Route::post('/create-staff', 'StaffController@CreateStaff');
     });
 
     #退出登录
@@ -73,33 +72,8 @@ Route::post('/mobile/login', 'Mobile\LoginController@Login');
 #后台手机登陆
 Route::post('/admin/phone-login', 'Admin\LoginController@PhoneLogin');
 
-#复工申请
-Route::prefix('apply')->namespace('Admin')->group(function () {
-    Route::post('/create-apply', 'ApplyController@CreateApply');
-    Route::post('/edit-apply', 'ApplyController@EditApply');
-    Route::get('/apply-detail', 'ApplyController@ApplyDetail');
-    Route::get('/approval-process', 'ApplyController@ApprovalProcess');
-    Route::post('/apply-init', 'ApplyController@ApplyInit');
-    Route::post('/save-apply', 'ApplyController@SaveApply');
-    Route::get('/get-save', 'ApplyController@GetSave');
-});
-
-
-
 #手机端手机登陆
 Route::post('/mobile/phone-login', 'Mobile\LoginController@PhoneLogin');
-
-#复工申请
-Route::prefix('/mobile/apply')->namespace('Mobile')->group(function () {
-    Route::post('/create-apply', 'ApplyController@CreateApply');
-    Route::post('/edit-apply', 'ApplyController@EditApply');
-    Route::get('/apply-detail', 'ApplyController@ApplyDetail');
-    Route::get('/approval-process', 'ApplyController@ApprovalProcess');
-    Route::post('/apply-init', 'ApplyController@ApplyInit');
-    Route::post('/save-apply', 'ApplyController@SaveApply');
-    Route::get('/get-save', 'ApplyController@GetSave');
-});
-
 
 
 #todo---------------------------------------------------  公共  --------------------------------------------------------#

@@ -18,11 +18,13 @@ class BaseService
 
     public function __construct()
     {
+        $this->user_id   = 1;
+
         $token = \Request::header('authorization');
 
         if (!empty(Cache::get($token))) {
             $this->user_info = Cache::get($token);
-            $this->user_id   = $this->user_info['id'];
+            $this->user_id   = 1;
         }
     }
 
