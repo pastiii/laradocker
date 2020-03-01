@@ -57,18 +57,18 @@ class Handler extends ExceptionHandler
         }
 
         if ($exception instanceof MethodNotAllowedHttpException) {
-            return response(['code' => 405, 'data' => NULL, 'msg' => 'Method Not Allowed']);
+            return response(['status' => 405, 'data' => NULL, 'msg' => 'Method Not Allowed']);
         }
 
         if ($exception instanceof NotFoundHttpException) {
-            return response(['code' => 404, 'data' => NULL, 'msg' => 'Not Found']);
+            return response(['status' => 404, 'data' => NULL, 'msg' => 'Not Found']);
         }
 
         if ($exception instanceof ValidationException) {
             $error_info = array_slice($exception->errors(), 0, 1, false);
             $msg        = array_column($error_info, 0);
 
-            return response(['code' => RETURN_ERROR, 'data' => NULL, 'msg' => $msg['0']]);
+            return response(['status' => RETURN_ERROR, 'data' => NULL, 'msg' => $msg['0']]);
         }
 
 
