@@ -8,30 +8,28 @@
 
 namespace App\Services;
 
-use App\Models\ApplyModel;
+use App\Models\StaffModel;
 
 require_once(base_path() . '/app/libs/PHPExcel-1.8/Classes/PHPExcel.php');
 require_once(base_path() . '/app/libs/PHPExcel-1.8/Classes/PHPExcel/Writer/Excel2007.php');
 
 class ExportService extends BaseService
 {
-    public function Export()
+    public function Export($param)
     {
-        $model = new ApplyModel();
+        $model = new StaffModel();
 
-        $filed = 'id, enterprise_name, contacts, juridical_person_phone, FROM_UNIXTIME(start_time, "%Y-%m-%d") as start_time, staff_num, return_num, not_return_num, six_category, 
-        isolation_room, is_disinfect, measure_temperature, is_propagate, state';
+        $where = array_filter([
+            'con' => $param['con'] ?? ''
+        ]);
 
-        $where = array_filter(
-            [
-                'enterprise_name' => $params['enterprise_name'] ?? ''
-            ]
-        );
+        $filed = 'id, staff_name, staff_phone, referrer_name, referrer_phone, company, state';
 
         $res = $model->GetList($filed, $where);
 
-        $content = "中小大工业企业复产复工情况统计表";
-        $title   = ['序号', '企业名称', '疫情防控负责人', '负责人联系方式', '企业状态', '企业复产复工时间', '企业用工人数', '实际返岗人数', '县外人数', '六类人数', '设置隔离室', '是否消毒防控', '是否进行体温检测', '是否进行防疫宣传'];
+
+        $content = "人员名单";
+        $title   = ['编号', '本人姓名', '本人电话', '推荐人姓名', '推荐人电话', '企业名称', '状态'];
         $result  = [];
         #数据处理
         if ($res['status'] == RETURN_SUCCESS) {
@@ -41,40 +39,21 @@ class ExportService extends BaseService
 
                 switch ($val['state']) {
                     case 1:
-                        $state = '拟复产';
+                        $state = '未核销';
                         break;
                     case 2:
-                        $state = '拟复产';
-                        break;
-                    case 3:
-                        $state = '拟复产';
-                        break;
-                    case 4:
-                        $state = '生产';
-                        break;
-                    case 5:
-                        $state = '停产';
-                        break;
-                    case 6:
-                        $state = '停产';
+                        $state = '已核销';
                         break;
                 }
 
                 $params = [
                     'id'                     => $i,
-                    'enterprise_name'        => $val['enterprise_name'],
-                    'contacts'               => $val['contacts'],
-                    'juridical_person_phone' => $val['juridical_person_phone'],
+                    'staff_name'             => $val['staff_name'],
+                    'staff_phone'            => $val['staff_phone'],
+                    'referrer_name'          => $val['referrer_name'],
+                    'referrer_phone'         => $val['referrer_phone'],
+                    'company'                => $val['company'],
                     'state'                  => $state,
-                    'start_time'             => $val['start_time'],
-                    'staff_num'              => $val['staff_num'],
-                    'return_num'             => $val['return_num'],
-                    'not_return_num'         => $val['not_return_num'],
-                    'six_category'           => $val['six_category'],
-                    'isolation_room'         => $val['isolation_room'] == 1 ? '是' : '否',
-                    'is_disinfect'           => $val['is_disinfect'] == 1 ? '是' : '否',
-                    'measure_temperature'    => $val['measure_temperature'] == 1 ? '是' : '否',
-                    'is_propagate'           => $val['is_propagate'] == 1 ? '是' : '否',
                 ];
 
                 array_push($result, $params);

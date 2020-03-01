@@ -42,6 +42,7 @@ Route::group(['middleware' => 'login'], function () {
     Route::prefix('staff')->namespace('Admin')->group(function () {
         Route::get('/staff-list', 'StaffController@StaffList');
         Route::get('/staff-detail', 'StaffController@StaffDetail');
+        Route::get('/export', 'StaffController@Export');
     });
 
     #退登

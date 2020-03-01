@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\BaseController;
+use App\Services\ExportService;
 use App\Services\ImportService;
 use App\Services\StaffService;
 use Illuminate\Http\Request;
@@ -31,7 +32,7 @@ class StaffController extends BaseController
      */
     public function StaffList()
     {
-        $result = $this->staff_service->StaffList($this->is_page, $this->per_page);
+        $result = $this->staff_service->StaffList($this->params, $this->is_page, $this->per_page);
 
         return $this->Response($result);
     }
@@ -97,6 +98,14 @@ class StaffController extends BaseController
         $result = $service->Import($this->params);
 
         return $this->Response($result);
+    }
+
+    /**
+     * 员工导出
+     */
+    public function Export()
+    {
+        (new ExportService())->Export($this->params);
     }
 
 }

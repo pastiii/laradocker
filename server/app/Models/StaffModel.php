@@ -42,6 +42,14 @@ class StaffModel extends BaseModel
                         "a.user_name", "like", "%$val%"
                     );
                     break;
+                case 'con':
+                    $res->Orwhere(
+                        "a.staff_name", "like", "%$val%"
+                    );
+                    $res->Orwhere(
+                        "a.staff_phone", "like", "%$val%"
+                    );
+                    break;
                 case 'user_phone':
                     $res->where(
                         "a.user_phone", "like", "%$val%"

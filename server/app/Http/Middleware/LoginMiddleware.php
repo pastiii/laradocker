@@ -18,6 +18,7 @@ class LoginMiddleware
      */
     public function handle($request, Closure $next)
     {
+        #暂时
 //        $token = $request->header('authorization');
 //        if (empty($token) || empty(Cache::get($token))) {
 //            throw new ExampleException('登陆过期,请重新登陆', LOGIN_ERROR);

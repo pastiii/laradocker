@@ -39,16 +39,21 @@ class StaffService extends BaseService
 
     /**
      * 企业员工列表
+     * @param $param
      * @param $is_page
      * @param $per_page
      * @return array
      * @throws \App\Exceptions\ExampleException
      */
-    public function StaffList($is_page, $per_page)
+    public function StaffList($param, $is_page, $per_page)
     {
+        $where = array_filter([
+            'con' => $param['con'] ?? ''
+        ]);
+
         $filed = 'id, staff_name, staff_phone, referrer_name, referrer_phone, company, state, is_del';
 
-        $result = $this->staff_model->GetList($filed, [], [], '', '', $is_page, $per_page);
+        $result = $this->staff_model->GetList($filed, $where, [], '', '', $is_page, $per_page);
 
         return $result;
     }
